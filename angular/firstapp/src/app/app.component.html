@@ -1,0 +1,30 @@
+<div class="container">
+  <div>
+    <h1>Random Teams Generator</h1>
+  </div>
+  <ul class="list">
+      <li *ngFor="let member of teamMembers">{{member}}</li>
+  </ul>
+  <div class="add-container">
+    <input #addMemberInput [class.focus]="memberName"
+    (input)="onInput(addMemberInput.value)" type="text" [value]="memberName" name="add">
+    <button (click)="addMember()">Add</button>
+    <button (click)="clear()">Clear</button>
+    <button (click)="changeInput()">change input field</button>
+
+  </div>
+  <div class="generate-container">
+    <input #generateTeamsInput (input)="onTeamsNumberInput(generateTeamsInput.value)" type="number" name="generate" id="generate">
+    <button (click)="generateTeams()">generate</button>
+  </div>    
+</div>
+
+
+<p class="error" *ngIf="errorMessage"> 
+  {{errorMessage}}
+</p>
+
+<div class="teams-container" *ngIf="generatedTeams">
+  <app-team [members]="team" (memberRemovedEvents)="memberRemoved($event)" [index]="i" *ngFor="let team of generatedTeams; let i= index;"></app-team>
+</div>
+
